@@ -3,7 +3,7 @@ from flasgger import Swagger
 import datetime
 import json
 import logging
-from meteostat import Point, Daily
+from meteostat import Point, Daily, Hourly
 from datetime import datetime, timedelta 
 
 app = Flask(__name__)
@@ -71,6 +71,7 @@ def get_weather():
     now = datetime.now()
     if not date:
         date =  datetime(now.year, now.month, now.day) #datetime.now()
+        date2=  datetime(now.year, now.month, now.day+1) #datetime.now()
     else:
         got_date = datetime.strptime(date, "%Y-%m-%d")
         date =  datetime(got_date.year, got_date.month, got_date.day)
@@ -79,12 +80,14 @@ def get_weather():
     location = Point(lat,lon)
 
     # Get daily data for 2018
-    data = Daily(location, date, date)
+    data = Daily(location, date, date2)
     data = data.fetch()
     print(data)
     if(data.empty):
         return jsonify({"error":"Data not found"}), 404
-    return jsonify({"temperature":data.iloc[0]["tavg"]})
+    return jsonify({"Average Temperature":data.iloc[0]["tavg"],"Max Temperature":data.iloc[0]["tmax"],
+                    "Min Temperature":data.iloc[0]["tmin"],"Precipitation":data.iloc[0]["prcp"],
+                     "Wind Speed":data.iloc[0]["wspd"] })
      
 
 
