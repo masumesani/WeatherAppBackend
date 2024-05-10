@@ -14,7 +14,7 @@ cities = {
     "Paris":{"lat":48.8575, "long":2.3514},
     "London":{"lat":51.5074, "long":-0.1278},
     "New York":{"lat":40.7128, "long":-74.0060},
-    "MADRID":{"lat":40.4168, "long":-3.7038},
+    "Madrid":{"lat":40.4168, "long":-3.7038},
     "Copenhagen":{"lat":55.6761, "long":12.5683},
     "Berlin":{"lat":52.5200, "long":13.4050},
     "Rome":{"lat":41.9028, "long":12.4964},
@@ -25,7 +25,19 @@ cities = {
     "isfahan":{"lat":32.6546, "long":51.6679},
 }
 
+# Route to get all cities
+@app.route('/api/city', methods=['GET'])
+def get_cities():
+    """
+    Get all cities
+    ---
+    responses:
+      200:
+        description: A list of cities
+    """
+    
 
+    return jsonify({"cities":list(cities.keys())})
 @app.route('/api/weather', methods=['GET'])
 def get_weather():
 
