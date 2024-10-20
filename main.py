@@ -5,8 +5,10 @@ import json
 import logging
 from meteostat import Point, Daily, Hourly
 from datetime import datetime, timedelta 
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 swagger = Swagger(app)
 
 cities = {

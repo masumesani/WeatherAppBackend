@@ -2,3 +2,4 @@ flask
 flasgger
 meteostat
 gunicorn
+flask-cors
